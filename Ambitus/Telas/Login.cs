@@ -63,26 +63,24 @@ namespace Ambitus.Telas
                     };
 
                     string jsonData = JsonSerializer.Serialize(data);
+                    //HttpContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
-                    using (httpClient)
+                    var response = await httpClient.PostAsync(url, new StringContent(jsonData, Encoding.UTF8, "application/json"));
+
+                    if (response.IsSuccessStatusCode)
                     {
-                        //HttpContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                        MessageBox.Show("Login realizado!");
 
-                        var response = await httpClient.PostAsync(url, new StringContent(jsonData, Encoding.UTF8, "application/json"));
+                        this.Close();
 
-                        if (response.IsSuccessStatusCode)
-                        {
-                            MessageBox.Show("Login realizado!");
-
-                            this.Close();
-
-                            Menu_Principal menu = new Menu_Principal();
-                            menu.ShowDialog();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Erro: " + response.ReasonPhrase);
-                        }
+                        Recompensas menu = new Recompensas();
+                        menu.ShowDialog();
+                        response.Dispose();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Erro: " + response.ReasonPhrase);
+                        response.Dispose();
                     }
                 }
                 else
