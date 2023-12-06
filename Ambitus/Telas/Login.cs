@@ -1,4 +1,5 @@
 using Entidades;
+using System.Configuration;
 using System.Text;
 using System.Text.Json;
 
@@ -69,13 +70,23 @@ namespace Ambitus.Telas
 
                     if (response.IsSuccessStatusCode)
                     {
-                        MessageBox.Show("Login realizado!");
+                        string responseContent = await response.Content.ReadAsStringAsync();
+                        Login_Response loginResponse = JsonSerializer.Deserialize<Login_Response>(responseContent);
 
-                        this.Close();
+                        string token = loginResponse.token;
+                        string nome = loginResponse.nome;
+                        string image = loginResponse.image;
+                        int nivel = loginResponse.nivel;
 
-                        Recompensas menu = new Recompensas();
+                        Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                        config.AppSettings.Settings["APIToken"].Value = token;
+                        config.Save(ConfigurationSaveMode.Modified);
+                        ConfigurationManager.RefreshSection("appSettings");
+
+                        this.Hide();
+
+                        MenuPrincipal menu = new();
                         menu.ShowDialog();
-                        response.Dispose();
                     }
                     else
                     {

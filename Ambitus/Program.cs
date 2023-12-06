@@ -14,7 +14,7 @@ namespace Ambitus.Telas
             ApplicationConfiguration.Initialize();
 
             Login login = new();
-            Recompensas menu = new Recompensas();
+            MenuPrincipal menu = new();
 
             DialogResult loginResult = login.ShowDialog();
 

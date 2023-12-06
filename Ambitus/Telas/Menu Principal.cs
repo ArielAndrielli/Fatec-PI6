@@ -10,11 +10,22 @@ using System.Windows.Forms;
 
 namespace Ambitus.Telas
 {
-    public partial class Recompensas : Form
+    public partial class MenuPrincipal : Form
     {
-        public Recompensas()
+        public MenuPrincipal()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCriarEvento_Click(object sender, EventArgs e)
+        {
+            Cadastro_de_Eventos cadEventos = new();
+            cadEventos.Show();
         }
     }
 }

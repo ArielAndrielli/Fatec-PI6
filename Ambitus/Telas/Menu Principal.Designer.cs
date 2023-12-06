@@ -1,6 +1,6 @@
 ﻿namespace Ambitus.Telas
 {
-    partial class Recompensas
+    partial class MenuPrincipal
     {
         /// <summary>
         /// Required designer variable.
@@ -28,16 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Recompensas));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MenuPrincipal));
             label1 = new Label();
             pictureBox1 = new PictureBox();
             panel2 = new Panel();
             btnCriarEvento = new Button();
             panel1 = new Panel();
-            lblCadastrar = new Label();
-            button1 = new Button();
-            label2 = new Label();
             dgvEventos = new DataGridView();
+            lblCadastrar = new Label();
+            btnGerenciarEventos = new Button();
+            label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvEventos).BeginInit();
@@ -66,9 +66,9 @@
             // 
             // panel2
             // 
-            panel2.Location = new Point(1060, 267);
+            panel2.Location = new Point(1060, 199);
             panel2.Name = "panel2";
-            panel2.Size = new Size(832, 762);
+            panel2.Size = new Size(832, 688);
             panel2.TabIndex = 26;
             // 
             // btnCriarEvento
@@ -77,55 +77,21 @@
             btnCriarEvento.FlatStyle = FlatStyle.Flat;
             btnCriarEvento.Font = new Font("Arial Rounded MT Bold", 20.25F, FontStyle.Italic, GraphicsUnit.Point);
             btnCriarEvento.ForeColor = Color.FromArgb(144, 218, 101);
-            btnCriarEvento.Location = new Point(39, 986);
+            btnCriarEvento.Location = new Point(36, 918);
             btnCriarEvento.Name = "btnCriarEvento";
             btnCriarEvento.Size = new Size(361, 43);
             btnCriarEvento.TabIndex = 29;
             btnCriarEvento.Text = "Cadastrar Eventos";
             btnCriarEvento.UseVisualStyleBackColor = false;
+            btnCriarEvento.Click += btnCriarEvento_Click;
             // 
             // panel1
             // 
             panel1.Controls.Add(dgvEventos);
-            panel1.Location = new Point(39, 267);
+            panel1.Location = new Point(39, 196);
             panel1.Name = "panel1";
             panel1.Size = new Size(849, 691);
             panel1.TabIndex = 27;
-            // 
-            // lblCadastrar
-            // 
-            lblCadastrar.AutoSize = true;
-            lblCadastrar.Font = new Font("Arial", 24F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
-            lblCadastrar.ForeColor = Color.FromArgb(111, 146, 0);
-            lblCadastrar.Location = new Point(1060, 218);
-            lblCadastrar.Name = "lblCadastrar";
-            lblCadastrar.Size = new Size(195, 36);
-            lblCadastrar.TabIndex = 30;
-            lblCadastrar.Text = "Premiações";
-            // 
-            // button1
-            // 
-            button1.BackColor = Color.FromArgb(66, 151, 17);
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Arial Rounded MT Bold", 20.25F, FontStyle.Italic, GraphicsUnit.Point);
-            button1.ForeColor = Color.FromArgb(144, 218, 101);
-            button1.Location = new Point(527, 986);
-            button1.Name = "button1";
-            button1.Size = new Size(361, 43);
-            button1.TabIndex = 31;
-            button1.Text = "Gerenciar Eventos";
-            button1.UseVisualStyleBackColor = false;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Arial", 24F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
-            label2.ForeColor = Color.FromArgb(111, 146, 0);
-            label2.Location = new Point(39, 218);
-            label2.Name = "label2";
-            label2.Size = new Size(140, 36);
-            label2.TabIndex = 32;
-            label2.Text = "Eventos";
             // 
             // dgvEventos
             // 
@@ -137,14 +103,50 @@
             dgvEventos.Size = new Size(843, 685);
             dgvEventos.TabIndex = 0;
             // 
-            // Recompensas
+            // lblCadastrar
+            // 
+            lblCadastrar.AutoSize = true;
+            lblCadastrar.Font = new Font("Arial", 24F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            lblCadastrar.ForeColor = Color.FromArgb(111, 146, 0);
+            lblCadastrar.Location = new Point(1060, 157);
+            lblCadastrar.Name = "lblCadastrar";
+            lblCadastrar.Size = new Size(195, 36);
+            lblCadastrar.TabIndex = 30;
+            lblCadastrar.Text = "Premiações";
+            // 
+            // btnGerenciarEventos
+            // 
+            btnGerenciarEventos.BackColor = Color.FromArgb(66, 151, 17);
+            btnGerenciarEventos.FlatStyle = FlatStyle.Flat;
+            btnGerenciarEventos.Font = new Font("Arial Rounded MT Bold", 20.25F, FontStyle.Italic, GraphicsUnit.Point);
+            btnGerenciarEventos.ForeColor = Color.FromArgb(144, 218, 101);
+            btnGerenciarEventos.Location = new Point(524, 918);
+            btnGerenciarEventos.Name = "btnGerenciarEventos";
+            btnGerenciarEventos.Size = new Size(361, 43);
+            btnGerenciarEventos.TabIndex = 31;
+            btnGerenciarEventos.Text = "Gerenciar Eventos";
+            btnGerenciarEventos.UseVisualStyleBackColor = false;
+            btnGerenciarEventos.Click += button1_Click;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Arial", 24F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            label2.ForeColor = Color.FromArgb(111, 146, 0);
+            label2.Location = new Point(39, 157);
+            label2.Name = "label2";
+            label2.Size = new Size(140, 36);
+            label2.TabIndex = 32;
+            label2.Text = "Eventos";
+            // 
+            // MenuPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(254, 250, 224);
             ClientSize = new Size(1904, 1041);
             Controls.Add(label2);
-            Controls.Add(button1);
+            Controls.Add(btnGerenciarEventos);
             Controls.Add(lblCadastrar);
             Controls.Add(panel1);
             Controls.Add(btnCriarEvento);
@@ -152,9 +154,9 @@
             Controls.Add(label1);
             Controls.Add(pictureBox1);
             MinimizeBox = false;
-            Name = "Recompensas";
+            Name = "MenuPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Recompensas";
+            Text = "Menu Principal";
             WindowState = FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel1.ResumeLayout(false);
@@ -170,7 +172,7 @@
         private Button btnCriarEvento;
         private Panel panel1;
         private Label lblCadastrar;
-        private Button button1;
+        private Button btnGerenciarEventos;
         private Label label2;
         private DataGridView dgvEventos;
     }
