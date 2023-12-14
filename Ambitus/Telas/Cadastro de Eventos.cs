@@ -25,6 +25,7 @@ namespace Ambitus.Telas
 
         Dados_Evento evento = new();
         bool responseAwnser = false;
+        bool headerFilled = false;
         string url = "http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/eventos/cadastro";
         HttpClient httpClient = new();
 
@@ -37,12 +38,33 @@ namespace Ambitus.Telas
             Popular_cbbTipos();
 
             dtpDataEvento.Format = DateTimePickerFormat.Custom;
-            dtpDataEvento.CustomFormat = "dd/MM/yyyy hh:mm";
+            dtpDataEvento.CustomFormat = "dd/MM/yyyy HH:mm";
+
+            this.Size = new Size(730, 1024);
+            lblEvento.Location = new Point(310, 100);
+            lblCadastrar.Location = new Point(200, 30);
         }
 
         #endregion
 
         #region Methods
+
+        public void Formatar_Tela()
+        {
+            if (ckbCupom.Checked)
+            {
+                this.Size = new Size(1208, 1024);
+                //pnCadEvento.Location = new Point(131, 139);
+                lblEvento.Location = new Point(297, 106);
+                lblCadastrar.Location = new Point(428, 31);
+            }
+            else
+            {
+                this.Size = new Size(730, 1024);
+                lblEvento.Location = new Point(310, 100);
+                lblCadastrar.Location = new Point(200, 30);
+            }
+        }
 
         public void Popular_cbbTipos()
         {
@@ -53,7 +75,7 @@ namespace Ambitus.Telas
             table.Rows.Add("Reciclagem", "RECICLAGEM");
             table.Rows.Add("Limpeza de Ambientes", "LIMPEZA_DE_AMBIENTES");
             table.Rows.Add("Reflorestamento", "REFLORESTAMENTO");
-            table.Rows.Add("Concientização e Educação", "CONCIENTIZACAO_E_EDUCACAO");
+            table.Rows.Add("Concientização e Educação", "CONSCIENTIZACAO_E_EDUCACAO");
             table.Rows.Add("Conservação", "CONSERVACAO");
 
             cbbTipos.DataSource = table;
@@ -115,7 +137,75 @@ namespace Ambitus.Telas
             }
         }
 
+        public async Task Criar_Evento()
+        {
+            try
+            {
+                if (Preencher_Campos())
+                {
+                    var dadosEvento = new
+                    {
+                        evento.titulo,
+                        evento.descricao,
+                        evento.local,
+                        evento.data,
+                        evento.hora,
+                        evento.tipo,
+                        evento.imagem
+                    };
+
+                    if (ckbCupom.Checked)
+                    {
+                        evento.cupom = new()
+                        {
+                            titulo = txtNomeCupom.Text,
+                            descricao = txtDescricaoCupom.Text,
+                            codigo = txtCodigoCupom.Text,
+                            validade = dtpValidadeCupom.Text
+                        };
+                    }
+
+                    var jsonData = JsonSerializer.Serialize(dadosEvento);
+
+                    string token = ConfigurationManager.AppSettings["APIToken"];
+
+                    httpClient.DefaultRequestHeaders.Clear();
+                    httpClient.DefaultRequestHeaders.Add("Authorization", token);
+                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    headerFilled = true;
+
+                    var response = await httpClient.PostAsync(url, new StringContent(jsonData, Encoding.UTF8, "application/json"));
+
+                    responseAwnser = response.IsSuccessStatusCode;
+
+                    if (responseAwnser)
+                    {
+                        MessageBox.Show("Evento cadastrado com sucesso!", "Sucesso",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Erro ao criar o evento!", "Erro",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        return;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message, "Erro",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return;
+            }
+        }
+
         #endregion
+
+        #region Events
 
         private void pbImgEvento_Click(object sender, EventArgs e)
         {
@@ -140,65 +230,18 @@ namespace Ambitus.Telas
 
         private void ckbCupom_CheckedChanged(object sender, EventArgs e)
         {
+            lblCupom.Visible = ckbCupom.Checked;
+            pnCupom.Visible = ckbCupom.Checked;
             pnCupom.Enabled = ckbCupom.Checked;
+
+            Formatar_Tela();
         }
 
-        private async void btnCriarEvento_Click(object sender, EventArgs e)
+        private void btnCriarEvento_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (Preencher_Campos())
-                {
-                    using (httpClient)
-                    {
-                        var data = new
-                        {
-                            evento.titulo,
-                            evento.descricao,
-                            evento.local,
-                            evento.data,
-                            evento.hora,
-                            evento.tipo,
-                            evento.imagem
-                        };
-
-                        var jsonData = JsonSerializer.Serialize(data);
-
-                        string token = ConfigurationManager.AppSettings["APIToken"];
-
-                        //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                        httpClient.DefaultRequestHeaders.Add("Authorization", token);
-                        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                        
-                        var response = await httpClient.PostAsync(url, new StringContent(jsonData, Encoding.UTF8, "application/json"));
-
-                        responseAwnser = response.IsSuccessStatusCode;
-
-                    }
-
-                        if (responseAwnser)
-                        {
-                            MessageBox.Show("Evento cadastrado com sucesso!", "Sucesso", 
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                            this.Close();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Erro ao criar o evento!", "Erro", 
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                            return;
-                        }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro: " + ex.Message, "Erro",
-                MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                return;
-            }
+            Criar_Evento();
         }
+
+        #endregion
     }
 }

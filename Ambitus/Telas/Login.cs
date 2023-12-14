@@ -26,11 +26,7 @@ namespace Ambitus.Telas
 
         #endregion
 
-        private void lblCadastrar_Click(object sender, EventArgs e)
-        {
-            Cadastro cadastro = new();
-            cadastro.ShowDialog();
-        }
+        #region Methods
 
         public bool Preencher_Campos()
         {
@@ -64,7 +60,6 @@ namespace Ambitus.Telas
                     };
 
                     string jsonData = JsonSerializer.Serialize(data);
-                    //HttpContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
                     var response = await httpClient.PostAsync(url, new StringContent(jsonData, Encoding.UTF8, "application/json"));
 
@@ -90,7 +85,8 @@ namespace Ambitus.Telas
                     }
                     else
                     {
-                        MessageBox.Show("Erro: " + response.ReasonPhrase);
+                        MessageBox.Show("Erro ao fazer o login! Verifique os campos e tente novamente!", "Erro", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                         response.Dispose();
                     }
                 }
@@ -108,9 +104,21 @@ namespace Ambitus.Telas
 
         }
 
+        #endregion
+
+        #region Events
+
+        private void lblCadastrar_Click(object sender, EventArgs e)
+        {
+            Cadastro cadastro = new();
+            cadastro.ShowDialog();
+        }
+
         private void btnLogin_Click(object sender, EventArgs e)
         {
             Log_In();
         }
+
+        #endregion
     }
 }

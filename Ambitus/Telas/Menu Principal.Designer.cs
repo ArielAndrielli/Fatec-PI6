@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MenuPrincipal));
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             label1 = new Label();
             pictureBox1 = new PictureBox();
             panel2 = new Panel();
@@ -38,6 +39,7 @@
             lblCadastrar = new Label();
             btnGerenciarEventos = new Button();
             label2 = new Label();
+            btnReload = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvEventos).BeginInit();
@@ -95,12 +97,29 @@
             // 
             // dgvEventos
             // 
+            dgvEventos.AllowUserToAddRows = false;
+            dgvEventos.AllowUserToDeleteRows = false;
+            dgvEventos.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.ButtonFace;
+            dataGridViewCellStyle1.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvEventos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgvEventos.BackgroundColor = Color.White;
-            dgvEventos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvEventos.Location = new Point(3, 3);
+            dgvEventos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dgvEventos.Dock = DockStyle.Fill;
+            dgvEventos.EnableHeadersVisualStyles = false;
+            dgvEventos.GridColor = SystemColors.ControlDark;
+            dgvEventos.Location = new Point(0, 0);
             dgvEventos.Name = "dgvEventos";
+            dgvEventos.ReadOnly = true;
+            dgvEventos.RowHeadersVisible = false;
             dgvEventos.RowTemplate.Height = 25;
-            dgvEventos.Size = new Size(843, 685);
+            dgvEventos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvEventos.Size = new Size(849, 691);
             dgvEventos.TabIndex = 0;
             // 
             // lblCadastrar
@@ -120,13 +139,13 @@
             btnGerenciarEventos.FlatStyle = FlatStyle.Flat;
             btnGerenciarEventos.Font = new Font("Arial Rounded MT Bold", 20.25F, FontStyle.Italic, GraphicsUnit.Point);
             btnGerenciarEventos.ForeColor = Color.FromArgb(144, 218, 101);
-            btnGerenciarEventos.Location = new Point(524, 918);
+            btnGerenciarEventos.Location = new Point(427, 917);
             btnGerenciarEventos.Name = "btnGerenciarEventos";
             btnGerenciarEventos.Size = new Size(361, 43);
             btnGerenciarEventos.TabIndex = 31;
             btnGerenciarEventos.Text = "Gerenciar Eventos";
             btnGerenciarEventos.UseVisualStyleBackColor = false;
-            btnGerenciarEventos.Click += button1_Click;
+            btnGerenciarEventos.Click += btnGerenciarEventos_Click;
             // 
             // label2
             // 
@@ -139,12 +158,27 @@
             label2.TabIndex = 32;
             label2.Text = "Eventos";
             // 
+            // btnReload
+            // 
+            btnReload.BackColor = Color.FromArgb(66, 151, 17);
+            btnReload.FlatStyle = FlatStyle.Flat;
+            btnReload.Font = new Font("Arial Rounded MT Bold", 20.25F, FontStyle.Italic, GraphicsUnit.Point);
+            btnReload.ForeColor = Color.FromArgb(144, 218, 101);
+            btnReload.Image = Properties.Resources.icons8_reload_38;
+            btnReload.Location = new Point(843, 918);
+            btnReload.Name = "btnReload";
+            btnReload.Size = new Size(42, 42);
+            btnReload.TabIndex = 33;
+            btnReload.UseVisualStyleBackColor = false;
+            btnReload.Click += btnReload_Click;
+            // 
             // MenuPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(254, 250, 224);
             ClientSize = new Size(1904, 1041);
+            Controls.Add(btnReload);
             Controls.Add(label2);
             Controls.Add(btnGerenciarEventos);
             Controls.Add(lblCadastrar);
@@ -158,6 +192,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Menu Principal";
             WindowState = FormWindowState.Maximized;
+            Load += MenuPrincipal_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvEventos).EndInit();
@@ -175,5 +210,6 @@
         private Button btnGerenciarEventos;
         private Label label2;
         private DataGridView dgvEventos;
+        private Button btnReload;
     }
 }

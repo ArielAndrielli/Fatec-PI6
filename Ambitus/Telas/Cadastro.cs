@@ -7,7 +7,6 @@ namespace Ambitus.Telas
 {
     public partial class Cadastro : Form
     {
-
         #region Constructor
 
         public Cadastro()
@@ -58,38 +57,32 @@ namespace Ambitus.Telas
             {
                 if (Preencher_Campos())
                 {
-                    using (httpClient)
+                    var data = new
                     {
-                        var data = new
-                        {
-                            cad.nome,
-                            cad.idade,
-                            cad.sexo,
-                            cad.email,
-                            cad.senha
-                        };
+                        cad.nome,
+                        cad.idade,
+                        cad.sexo,
+                        cad.email,
+                        cad.senha
+                    };
 
-                        var jsonData = JsonSerializer.Serialize(data);
-                        //HttpContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                    var jsonData = JsonSerializer.Serialize(data);
 
-                        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                        var response = await httpClient.PostAsync(url, new StringContent(jsonData, Encoding.UTF8, "application/json"));
+                    var response = await httpClient.PostAsync(url, new StringContent(jsonData, Encoding.UTF8, "application/json"));
 
-                        //response = await httpClient.PostAsync(url, content);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        MessageBox.Show("Usuário cadastrado com sucesso!", "Sucesso",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                        if (response.IsSuccessStatusCode)
-                        {
-                            MessageBox.Show("Usuário cadastrado com sucesso!", "Sucesso",
-                            MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
-                            this.Close();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Erro: " + response.ReasonPhrase, "Erro",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Erro: " + response.ReasonPhrase, "Erro",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 else
@@ -106,9 +99,13 @@ namespace Ambitus.Telas
 
         #endregion
 
+        #region Events
+
         private void btnCadastrar_Click(object sender, EventArgs e)
         {
             Cadastrar();
         }
+
+        #endregion
     }
 }
