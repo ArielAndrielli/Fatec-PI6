@@ -20,7 +20,7 @@ namespace Ambitus.Telas
         #region Attributes
 
         Dados_Evento evento = new();
-        bool headerFilled = false;
+        List<Dados_Cupom> cupons = new();
         string urlEventos = "http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/eventos/meuseventos";
         string token = ConfigurationManager.AppSettings["APIToken"];
         HttpClient httpClient = new();
@@ -45,12 +45,9 @@ namespace Ambitus.Telas
         {
             try
             {
-                if (!headerFilled)
-                {
-                    httpClient.DefaultRequestHeaders.Add("Authorization", token);
-                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    headerFilled = true;
-                }
+                httpClient.DefaultRequestHeaders.Clear();
+                httpClient.DefaultRequestHeaders.Add("Authorization", token);
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 var response = await httpClient.GetAsync(urlEventos);
 
@@ -68,6 +65,13 @@ namespace Ambitus.Telas
                         e.data
                     }).ToList();
 
+                    cupons = eventos.Where(e => e.cupom != null).Select(e => e.cupom).ToList();
+
+                    foreach (Dados_Cupom cupom in cupons)
+                    {
+                        pnRecompensas.Controls.Add(CriarPanelCupom(cupom));
+                    }
+
                     Formatar_dgvEventos();
                 }
                 else
@@ -81,6 +85,46 @@ namespace Ambitus.Telas
                 MessageBox.Show("Erro: " + ex.Message, "Erro",
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private Panel CriarPanelCupom(Dados_Cupom cupom)
+        {
+            // Crie um novo Panel
+            Panel panelCupom = new Panel();
+            panelCupom.BorderStyle = BorderStyle.FixedSingle;
+            panelCupom.Width = 800;
+            panelCupom.Height = 100;
+
+            // Adicione Labels ao Panel para exibir informações do cupom
+            Label lblTitulo = new Label();
+            lblTitulo.Width = 800;
+            lblTitulo.Text = "Título: " + cupom.titulo;
+
+            Label lblDescricao = new Label();
+            lblDescricao.Width = 800;
+            lblDescricao.Text = "Descrição: " + cupom.descricao;
+
+            Label lblCodigo = new Label();
+            lblCodigo.Width = 800;
+            lblCodigo.Text = "Código: " + cupom.codigo;
+
+            Label lblValidade = new Label();
+            lblValidade.Width = 800;
+            lblValidade.Text = "Validade: " + cupom.validade;
+
+            // Defina as posições dos Labels dentro do Panel
+            lblTitulo.Location = new Point(10, 10);
+            lblDescricao.Location = new Point(10, 30);
+            lblCodigo.Location = new Point(10, 50);
+            lblValidade.Location = new Point(10, 70);
+
+            // Adicione os Labels ao Panel
+            panelCupom.Controls.Add(lblTitulo);
+            panelCupom.Controls.Add(lblDescricao);
+            panelCupom.Controls.Add(lblCodigo);
+            panelCupom.Controls.Add(lblValidade);
+
+            return panelCupom;
         }
 
         #endregion

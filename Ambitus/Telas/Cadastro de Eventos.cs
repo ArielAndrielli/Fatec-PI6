@@ -92,13 +92,21 @@ namespace Ambitus.Telas
             evento.data = dtpDataEvento.Text.Substring(0, 10);
             evento.hora = dtpDataEvento.Text.Substring(11);
             evento.tipo = cbbTipos.SelectedValue.ToString();
+            evento.cupom = ckbCupom.Checked ? new Dados_Cupom()
+            {
+                titulo = txtNomeCupom.Text,
+                descricao = txtDescricaoCupom.Text,
+                codigo = txtCodigoCupom.Text,
+                validade = dtpValidadeCupom.Text
+            } : null;
 
             if (evento.titulo == string.Empty ||
                 evento.descricao == string.Empty ||
                 evento.local == string.Empty ||
                 evento.data == string.Empty ||
                 evento.hora == string.Empty ||
-                evento.tipo == string.Empty)
+                evento.tipo == string.Empty ||
+                evento.cupom == null)
             {
                 MessageBox.Show("Um ou mais campos não foram preenchidos!", "Aviso",
                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -151,19 +159,9 @@ namespace Ambitus.Telas
                         evento.data,
                         evento.hora,
                         evento.tipo,
-                        evento.imagem
+                        evento.imagem,
+                        evento.cupom
                     };
-
-                    if (ckbCupom.Checked)
-                    {
-                        evento.cupom = new()
-                        {
-                            titulo = txtNomeCupom.Text,
-                            descricao = txtDescricaoCupom.Text,
-                            codigo = txtCodigoCupom.Text,
-                            validade = dtpValidadeCupom.Text
-                        };
-                    }
 
                     var jsonData = JsonSerializer.Serialize(dadosEvento);
 

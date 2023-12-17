@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MenuPrincipal));
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             label1 = new Label();
             pictureBox1 = new PictureBox();
-            panel2 = new Panel();
+            pnRecompensas = new Panel();
             btnCriarEvento = new Button();
             panel1 = new Panel();
             dgvEventos = new DataGridView();
@@ -66,12 +66,12 @@
             pictureBox1.TabIndex = 10;
             pictureBox1.TabStop = false;
             // 
-            // panel2
+            // pnRecompensas
             // 
-            panel2.Location = new Point(1060, 199);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(832, 688);
-            panel2.TabIndex = 26;
+            pnRecompensas.Location = new Point(1060, 199);
+            pnRecompensas.Name = "pnRecompensas";
+            pnRecompensas.Size = new Size(832, 688);
+            pnRecompensas.TabIndex = 26;
             // 
             // btnCriarEvento
             // 
@@ -99,16 +99,17 @@
             // 
             dgvEventos.AllowUserToAddRows = false;
             dgvEventos.AllowUserToDeleteRows = false;
+            dgvEventos.AllowUserToResizeColumns = false;
             dgvEventos.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.ButtonFace;
-            dataGridViewCellStyle1.SelectionForeColor = Color.Black;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgvEventos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgvEventos.BackgroundColor = Color.White;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.ButtonFace;
+            dataGridViewCellStyle2.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgvEventos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvEventos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgvEventos.Dock = DockStyle.Fill;
             dgvEventos.EnableHeadersVisualStyles = false;
@@ -129,9 +130,9 @@
             lblCadastrar.ForeColor = Color.FromArgb(111, 146, 0);
             lblCadastrar.Location = new Point(1060, 157);
             lblCadastrar.Name = "lblCadastrar";
-            lblCadastrar.Size = new Size(195, 36);
+            lblCadastrar.Size = new Size(206, 36);
             lblCadastrar.TabIndex = 30;
-            lblCadastrar.Text = "Premiações";
+            lblCadastrar.Text = "Premiações:";
             // 
             // btnGerenciarEventos
             // 
@@ -154,9 +155,9 @@
             label2.ForeColor = Color.FromArgb(111, 146, 0);
             label2.Location = new Point(39, 157);
             label2.Name = "label2";
-            label2.Size = new Size(140, 36);
+            label2.Size = new Size(151, 36);
             label2.TabIndex = 32;
-            label2.Text = "Eventos";
+            label2.Text = "Eventos:";
             // 
             // btnReload
             // 
@@ -177,14 +178,14 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(254, 250, 224);
-            ClientSize = new Size(1904, 1041);
+            ClientSize = new Size(1924, 1041);
             Controls.Add(btnReload);
             Controls.Add(label2);
             Controls.Add(btnGerenciarEventos);
             Controls.Add(lblCadastrar);
             Controls.Add(panel1);
             Controls.Add(btnCriarEvento);
-            Controls.Add(panel2);
+            Controls.Add(pnRecompensas);
             Controls.Add(label1);
             Controls.Add(pictureBox1);
             MinimizeBox = false;
@@ -203,7 +204,7 @@
         #endregion
         private Label label1;
         private PictureBox pictureBox1;
-        private Panel panel2;
+        private Panel pnRecompensas;
         private Button btnCriarEvento;
         private Panel panel1;
         private Label lblCadastrar;

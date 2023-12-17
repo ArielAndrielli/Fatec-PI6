@@ -16,6 +16,6 @@
 
         public string imagem { get; set; } = string.Empty;
 
-        public Dados_Cupom cupom { get; set; }
+        public Dados_Cupom? cupom { get; set; }
     }
 }
